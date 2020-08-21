@@ -1,0 +1,13 @@
+.idea/
+**/*.pyc
+**/__pycache__
+dist/
+**/playground.py
+pip-wheel-metadata/
+*.egg-info/
+.coverage
+*.css
+*.html
+.cache
+**/*.log
+.hypothesis

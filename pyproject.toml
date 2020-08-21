@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "btb"
+version = "0.1.0"
+description = "Bob the builder - utilities"
+authors = ["Joni Turunen <rojun.itu@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+elevate = { git="https://github.com/d3rp/elevate.git", branch="venv_option" }
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
