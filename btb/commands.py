@@ -63,6 +63,7 @@ class LoggedCmd:
             # log.info(info_msg)
             print(info_msg)
 
+        Path(LOG_FILEPATH).touch(exist_ok=True)
         res = None
         with open(LOG_FILEPATH, 'a') as lfh:
             log.debug(
