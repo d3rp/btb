@@ -63,9 +63,13 @@ class LoggedCmd:
             # log.info(info_msg)
             print(info_msg)
 
-        Path(LOG_FILEPATH).touch(exist_ok=True)
+        # When using elevate, the logfile can be created in priviledged mode. This creates issues
+        # in consecutive runs. More robust to just create a new file.
+        if Path(LOG_FILEPATH).exists():
+            Path(LOG_FILEPATH).unlink()
+
         res = None
-        with open(LOG_FILEPATH, 'a') as lfh:
+        with open(LOG_FILEPATH, 'w') as lfh:
             log.debug(
                 f'logged_run\n\tcwd:\t{str(cwd)}\n\tcmd:\t{pretty_string_cmd(cmd_lst)}\n\tkwargs:\t{repr(kwargs)}')
             try:
@@ -123,8 +127,13 @@ class LoggedCmd:
             # log.info(info_msg)
             print(info_msg)
 
+        # When using elevate, the logfile can be created in priviledged mode. This creates issues
+        # in consecutive runs. More robust to just create a new file.
+        if Path(LOG_FILEPATH).exists():
+            Path(LOG_FILEPATH).unlink()
+
         res = None
-        with open(LOG_FILEPATH, 'a') as lfh:
+        with open(LOG_FILEPATH, 'w') as lfh:
             log.debug(
                 f'logged_run\n\tcwd:\t{str(cwd)}\n\tcmd:\t{pretty_string_cmd(cmd_lst)}\n\tkwargs:\t{repr(kwargs)}')
             try:
@@ -133,22 +142,6 @@ class LoggedCmd:
             except FileNotFoundError as e:
                 log.error(
                     f'{__class__.__name__}.{sys._getframe().f_code.co_name}(...) raised [ {e.__class__.__name__}: {e} ]')
-
-        # Custom exception handling
-        # if res is None or res.returncode != 0:
-        #     tail_log(40)
-        #     if res is not None:
-        #         log.error('return code: %s', res.returncode)
-        #     if exc is not None:
-        #         if isinstance(exc, str):
-        #             log.error(exc)
-        #             raise LoggedRunError
-        #         elif isinstance(exc, Exception):
-        #             raise exc
-        #
-        #     Fallback exception type
-        #     raise LoggedRunError
-
         return res
 
     @staticmethod

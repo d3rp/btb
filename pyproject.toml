@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "btb"
-version = "0.1.4"
+version = "0.1.5"
 description = "Bob the builder - utilities"
 authors = ["Joni Turunen <rojun.itu@gmail.com>"]
 
